@@ -92,3 +92,39 @@ var layout={
 };
 Plotly.newPlot("grafica",datosgraf,layout);
 });
+
+var fecha = [];
+var costo = [];
+
+fetch('https://www.datos.gov.co/resource/ptj2-kj7i.json')
+
+.then(datosobte => datosobte.json())
+
+.then(function transformar(datosobte){
+
+x = 0
+datosobte.forEach(function agregar (datosobte)
+{
+    if(datosobte.fecha_publica != undefined && datosobte.costo_cr01 != undefined)
+    {
+        fecha.push(datosobte.fecha_publica);
+        costo.push(datosobte.costo_cr01);
+    }
+});
+
+var graf2={
+  x: fecha,
+  y: costo,
+  type: 'scatter',
+};
+
+var datosgraf= [graf2];
+
+var layout={
+    title: 'Numero De Suscriptores Por Proveedor',
+    showlegend: true,
+    height: 1500,
+    width: 1500,
+};
+Plotly.newPlot("mydiv1",datosgraf,layout);
+});
